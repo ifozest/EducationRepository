@@ -1,0 +1,9 @@
+{
+  "name" : "education",
+  "version" : "1.0.0",
+  "dependencies" : {
+    "jquery" : "1.9.x",
+    "backbone" : "1.0.x",
+    "underscore" : "1.5.x"
+  }
+}
