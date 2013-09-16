@@ -1,0 +1,77 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    background-color: darkslategrey;
+}
+
+#wrap {
+    width: 900px;
+    min-width: 900px;
+    margin: auto;
+    height: 100%;
+    min-height: 100%;
+    background-color: gainsboro;
+}
+
+header {
+    height: 120px;
+    background-color: gainsboro;
+    color: darkgreen;
+    border-bottom: 1px #000000 solid;
+}
+
+header h2{
+    margin-top: 40px;
+    margin-right: 50px;
+    float: right;
+}
+
+footer {
+    border-top: 1px #000000 solid;
+    background-color: gainsboro;
+    height: 120px;
+    text-align: center;
+}
+
+.mainBody {
+    height: 600px;
+    margin: 10px;
+}
+
+.mainBody .menu{
+    width: 200px;
+    height: 600px;
+    border: 1px #000000 solid;
+    float: left;
+}
+
+.mainBody .mainContent{
+    margin-left: 10px;
+    width: 660px;
+    height: 600px;
+    border: 1px #000000 solid;
+    float: left;
+}
+
+.taskShortViewContainer {
+    width: 600px;
+    margin: 30px;
+
+}
+
+.taskShortViewContainer .title {
+    margin: 0px 0px 20px 0px;
+    float: left;
+    font-size: large;
+    text-decoration: underline;
+}
+
+.taskShortViewContainer .date{
+    color: blue;
+    float: right;
+}
+
+.taskShortViewContainer .brief {
+    clear: both;
+}
