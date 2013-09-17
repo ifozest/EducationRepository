@@ -4,6 +4,7 @@
   "dependencies" : {
     "jquery" : "1.9.x",
     "backbone" : "1.0.x",
-    "underscore" : "1.5.x"
+    "underscore" : "1.5.x",
+    "requirejs": "2.1.x"
   }
 }
