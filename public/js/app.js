@@ -135,7 +135,7 @@
     initialize: function () {
       this.template = template('editNewsTemplate');
 //      this.model.on('invalid', this.validationFails);
-
+      console.log(this.id);
       this.model.collection = this.collection;
       this.collection.listenTo(this.model,'change', this.validationFails);
     },
@@ -215,6 +215,8 @@
   });
 
   //Router
+  //TODO replace this login in view
+  // Here is a place only for call Views
   var NewsRouter = Backbone.Router.extend({
     routes: {
       '': 'home',
@@ -262,10 +264,8 @@
       this.$container.empty();
       var $container = this.$container;
       var news = new News();
-      console.log(new News);
       news.set({'_id': id});
-      console.log(news);
-      var editNewsView = new EditNewsView({model: news, collection: this.collection});
+      var editNewsView = new EditNewsView({model: news, collection: this.collection, id : id});
       news.fetch({
         success: function (model) {
 
