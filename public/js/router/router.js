@@ -1,7 +1,3 @@
-/**
- * Entry point of application
- */
-
 define([
   'backbone',
   'view/appView'
@@ -10,10 +6,11 @@ define([
 
   var NewsRouter = Backbone.Router.extend({
     routes: {
-      '': 'home',
+      'home': 'home',
       "news/:id": 'showNewsContent',
       "createNews": 'createNews',
-      "editNews/:id": 'editNews'
+      "editNews/:id": 'editNews',
+      '*actions' : 'default'
     },
     initialize: function () {
       this.appView = new AppView();
@@ -29,9 +26,12 @@ define([
     },
     editNews: function (id) {
 
+    },
+    default: function() {
+      this.appView.refreshDOM();
+      this.navigate('home', true);
     }
   });
-  var app = new NewsRouter();
-  Backbone.history.start();
+  return NewsRouter;
 })
 

@@ -4,22 +4,7 @@
     return _.template($('#' + id).html());
   };
 
-  //News model
-  var News = Backbone.Model.extend({
-    defaults: {
-      title: '',
-      date: '111',
-      brief: '',
-      content: ''
-    },
-    idAttribute: '_id',
-    urlRoot: '/news',
-    validate: function (attr) {
-      if ($.trim(attr.title) === '') {
-        return 'title must be defined';
-      }
-    }
-  });
+
 
   //Short overview of news
   var NewsShortView = Backbone.View.extend({

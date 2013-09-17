@@ -17,4 +17,4 @@ require.config({
 });
 
 
-require(['router/router']);
+require(['entry']);
