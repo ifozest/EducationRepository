@@ -168,12 +168,6 @@
   });
 
 
-  //News Collection
-  var NewsCollection = Backbone.Collection.extend({
-    url: '/newsCollection',
-    model: News
-  });
-
   //News Collection View
   var NewsCollectionView = Backbone.View.extend({
     tagName: 'ul',
