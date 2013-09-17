@@ -15,3 +15,6 @@ require.config({
     }
   }
 });
+
+
+require(['router/router']);

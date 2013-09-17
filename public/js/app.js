@@ -214,74 +214,7 @@
     }
   });
 
-  //Router
-  //TODO replace this login in view
-  // Here is a place only for call Views
-  var NewsRouter = Backbone.Router.extend({
-    routes: {
-      '': 'home',
-      "news/:id": 'showNewsContent',
-      "addNews": 'addNews',
-      "editNews/:id": 'editNews'
-    },
-    initialize: function () {
-      this.collection = new NewsCollection();
-      this.newsCollectionView = new NewsCollectionView({
-        collection: this.collection
-      });
-      this.$container = $('.container');
-    },
-    home: function () {
-      this.newsCollectionView.fetchData();
-      this.$container.empty();
-      this.$container.append(this.newsCollectionView.render().el);
-    },
-    showNewsContent: function (id) {
-      var $container = this.$container;
-      this.$container.empty();
-      var news = new News();
-      news.set({'_id': id});
-      var fullNewsView = new NewsFullView({model: news, collection: this.collection});
 
-      news.fetch({
-        success: function () {
-          $container.append(fullNewsView.render().el);
-        },
-        error: function () {
-          $container.append('Cant find current news');
-        }
-      });
-    },
-    addNews: function () {
-      this.$container.empty();
-      var addNewsView = new AddNewsView({
-        model: new News()
-      });
-
-      this.$container.append(addNewsView.render().el);
-    },
-    editNews: function (id) {
-      this.$container.empty();
-      var $container = this.$container;
-      var news = new News();
-      news.set({'_id': id});
-      var editNewsView = new EditNewsView({model: news, collection: this.collection, id : id});
-      news.fetch({
-        success: function (model) {
-
-          $container.append(editNewsView.render().el);
-        },
-        error: function () {
-          $container.append('Cant find current news');
-        },
-        wait: true
-      });
-    }
-  });
-
-
-  window.app = new NewsRouter();
-  Backbone.history.start();
 
 
 }());
