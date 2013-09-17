@@ -13,22 +13,16 @@ define([
     tagName: 'article',
     className: 'appView',
     initialize: function () {
-      this.$body = $('body');
-      this.header = _.template(headerTemplate);
-      this.mainBody = _.template(mainBodyTemplate);
-      this.footer = _.template(footerTemplate);
+      this.predefineInitData();
+
       this.menuView = new MenuView();
     },
 
     //create skeleton of el var
     render: function () {
-      this.$mainBody = $(this.mainBody());
       this.$mainBody.append(this.menuView.render().el);
-      this.$el.append(this.header).append(this.$mainBody).append(this.footer);
+      this.$el.append(this.$header).append(this.$mainBody).append(this.$footer);
       return this;
-    },
-    refreshDOM: function () {
-      this.$el.empty();
     },
     renderAppView: function () {
       this.$body.prepend(this.render().el);
@@ -36,8 +30,17 @@ define([
     showNews: function () {
       alert('show news event');
     },
-    createNews: function () {
+    renderCreateNews: function () {
       alert('create news event');
+    },
+    predefineInitData: function(){
+      this.$body = $('body');
+      this.header = _.template(headerTemplate);
+      this.mainBody = _.template(mainBodyTemplate);
+      this.footer = _.template(footerTemplate);
+      this.$header = $(this.header());
+      this.$mainBody = $(this.mainBody());
+      this.$footer = $(this.footer());
     }
 
 

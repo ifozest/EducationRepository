@@ -28,7 +28,6 @@ define([
 
     },
     default: function() {
-      this.appView.refreshDOM();
       this.navigate('home', true);
     }
   });
