@@ -14,28 +14,16 @@ define([
     initialize: function () {
       this.template = _.template(template);
       this.model = new News();
-
-      this.model.on('fetchSuccess', this.fetchSuccess, this);
-      this.model.on('fetchError', this.fetchError, this);
-//        this.model.on('sync', this.render, this);
+      this.model.on('sync', this.fetchSuccess, this);
+      this.model.on('error', this.fetchError, this);
     },
     events: {
       "click .removeBtn": "removeNews",
       "click .editBtn": "editNews"
     },
-    render: function () {
-      return this;
-    },
     renderOneNews: function (id) {
       this.model.set({_id: id});
-      this.model.fetch({
-        success: function (model) {
-          model.trigger('fetchSuccess');
-        },
-        error: function (model) {
-          model.trigger('fetchError');
-        }
-      })
+      this.model.fetch();
     },
     fetchSuccess: function () {
       var renderedContent = this.template(this.model.toJSON());
