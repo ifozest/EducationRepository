@@ -1,17 +1,23 @@
 define([
   'jquery',
   'underscore',
-  'backbone'
+  'backbone',
+  'view/news/newsCollectionView'
 
 
-],function($, _, Backbone) {
+], function ($, _, Backbone, NewsCollectionView) {
 
   var ContainerView = Backbone.View.extend({
     tagName: 'div',
-    className : 'container',
+    className: 'container',
+    initialize: function () {
 
-    renderListOfNews : function() {
-      this.$el.html('Hello');
+
+    },
+
+    renderNewsList: function () {
+      var view = new NewsCollectionView();
+      this.$el.html(view.render().el);
     }
   });
 

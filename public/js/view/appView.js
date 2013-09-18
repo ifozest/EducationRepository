@@ -28,7 +28,7 @@ define([
       return this;
     },
     renderAppView: function () {
-      this.mainContainerView.renderListOfNews();
+      this.mainContainerView.renderNewsList();
       this.$body.prepend(this.render().el);
     },
     showNews: function () {
