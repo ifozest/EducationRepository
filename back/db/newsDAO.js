@@ -58,7 +58,7 @@ newsDAO.fetchAll = function(){
 newsDAO.insert = function (object) {
   var deferred = new Deferred();
   collection.insert(object, function (err, doc) {
-    (doc) ? deferred.resolve(doc) : deferred.reject(err);
+    (doc) ? deferred.resolve(doc[0]) : deferred.reject(err);
   });
   return deferred.promise;
 };
