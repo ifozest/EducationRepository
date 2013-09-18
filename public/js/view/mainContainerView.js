@@ -2,10 +2,11 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'view/news/newsCollectionView'
+  'view/news/newsCollectionView',
+  'view/news/oneNewsView'
 
 
-], function ($, _, Backbone, NewsCollectionView) {
+], function ($, _, Backbone, NewsCollectionView, OneNewsView) {
 
   var ContainerView = Backbone.View.extend({
     tagName: 'div',
@@ -17,6 +18,11 @@ define([
 
     renderNewsList: function () {
       var view = new NewsCollectionView();
+      this.$el.html(view.render().el);
+    },
+    renderOneNews: function(id) {
+      var view = new OneNewsView();
+      view.renderOneNews(id);
       this.$el.html(view.render().el);
     }
   });

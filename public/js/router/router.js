@@ -16,10 +16,10 @@ define([
       this.appView = new AppView();
     },
     home: function () {
-      this.appView.renderAppView();
+      this.appView.renderNewsList();
     },
     showNewsContent: function (id) {
-
+      this.appView.renderOneNews(id);
     },
     createNews: function () {
 

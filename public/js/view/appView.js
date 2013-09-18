@@ -27,9 +27,16 @@ define([
       this.$el.append(this.$header).append(this.$mainBody).append(this.$footer);
       return this;
     },
-    renderAppView: function () {
-      this.mainContainerView.renderNewsList();
+    renderAppView : function(){
       this.$body.prepend(this.render().el);
+    },
+    renderNewsList: function () {
+      this.renderAppView();
+      this.mainContainerView.renderNewsList();
+    },
+    renderOneNews: function (id) {
+      this.renderAppView();
+      this.mainContainerView.renderOneNews(id);
     },
     showNews: function () {
       alert('show news event');
@@ -37,7 +44,7 @@ define([
     renderCreateNews: function () {
       alert('create news event');
     },
-    predefineInitData: function(){
+    predefineInitData: function () {
       this.$body = $('body');
       this.header = _.template(headerTemplate);
       this.mainBody = _.template(mainBodyTemplate);
