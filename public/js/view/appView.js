@@ -38,11 +38,9 @@ define([
       this.renderAppView();
       this.mainContainerView.renderOneNews(id);
     },
-    showNews: function () {
-      alert('show news event');
-    },
     renderCreateNews: function () {
-      alert('create news event');
+      this.renderAppView();
+      this.mainContainerView.renderCreateNews();
     },
     predefineInitData: function () {
       this.$body = $('body');

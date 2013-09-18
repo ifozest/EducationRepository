@@ -22,7 +22,7 @@ define([
       this.appView.renderOneNews(id);
     },
     createNews: function () {
-
+      this.appView.renderCreateNews();
     },
     editNews: function (id) {
 

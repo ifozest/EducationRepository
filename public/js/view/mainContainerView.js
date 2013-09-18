@@ -3,10 +3,11 @@ define([
   'underscore',
   'backbone',
   'view/news/newsCollectionView',
-  'view/news/oneNewsView'
+  'view/news/oneNewsView',
+  'view/news/createNewsView'
 
 
-], function ($, _, Backbone, NewsCollectionView, OneNewsView) {
+], function ($, _, Backbone, NewsCollectionView, OneNewsView, CreateNewsView) {
 
   var ContainerView = Backbone.View.extend({
     tagName: 'div',
@@ -24,9 +25,11 @@ define([
       var view = new OneNewsView();
       view.renderOneNews(id);
       this.$el.html(view.render().el);
+    },
+    renderCreateNews: function() {
+      var view = new CreateNewsView();
+      this.$el.html(view.render().el);
     }
   });
-
-
   return ContainerView;
 });
