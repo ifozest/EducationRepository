@@ -3,11 +3,12 @@ define([
   'underscore',
   'backbone',
   'view/menuView',
+  'view/mainContainerView',
 
   'text!templates/header/header.html',
   'text!templates/main/mainBody.html',
   'text!templates/footer/footer.html'
-], function ($, _, Backbone, MenuView, headerTemplate, mainBodyTemplate, footerTemplate) {
+], function ($, _, Backbone, MenuView, MainContainerView, headerTemplate, mainBodyTemplate, footerTemplate) {
 
   var AppView = Backbone.View.extend({
     tagName: 'article',
@@ -16,15 +17,18 @@ define([
       this.predefineInitData();
 
       this.menuView = new MenuView();
+      this.mainContainerView = new MainContainerView();
+
     },
 
     //create skeleton of el var
     render: function () {
-      this.$mainBody.append(this.menuView.render().el);
+      this.$mainBody.append(this.menuView.render().el).append(this.mainContainerView.render().el);
       this.$el.append(this.$header).append(this.$mainBody).append(this.$footer);
       return this;
     },
     renderAppView: function () {
+      this.mainContainerView.renderListOfNews();
       this.$body.prepend(this.render().el);
     },
     showNews: function () {
