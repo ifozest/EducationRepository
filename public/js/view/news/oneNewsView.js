@@ -14,8 +14,10 @@ define([
     initialize: function () {
       this.template = _.template(template);
       this.model = new News();
-      this.model.on('sync', this.fetchSuccess, this);
-      this.model.on('error', this.fetchError, this);
+      this.model.on('fetchSuccess', this.fetchSuccess, this);
+      this.model.on('fetchError', this.fetchError, this);
+      this.model.on('removeSuccess', this.removeSuccess, this);
+      this.model.on('removeError', this.removeError, this);
     },
     events: {
       "click .removeBtn": "removeNews",
@@ -23,29 +25,43 @@ define([
     },
     renderOneNews: function (id) {
       this.model.set({_id: id});
-      this.model.fetch();
+      this.model.fetch({
+        success: function(model) {
+          model.trigger('fetchSuccess');
+        },
+        error: function(model) {
+          model.trigger('fetchError');
+        }
+      });
     },
     fetchSuccess: function () {
       var renderedContent = this.template(this.model.toJSON());
       this.$el.html(renderedContent);
     },
     fetchError: function () {
+      //TODO do smthng here
       this.$el.html('Cant find any news');
     },
     removeNews: function () {
       this.model.destroy({
-        success: function () {
-          window.app.navigate('', {trigger: true});
+        success: function (model) {
+          model.trigger('removeSuccess');
         },
-        error: function () {
-          alert('Cant remove this!')
+        error: function (model) {
+          model.trigger('removeError');
         },
-        wait: true,
         dataType: 'text'
       });
     },
+    removeSuccess: function(){
+      this.goTo('home', true);
+    },
+    removeError: function(){
+      //TODO render smthng clear
+      this.$el.append('CANT REMOVE THIS!');
+    },
     editNews: function () {
-      app.navigate('editNews/' + this.model.get("_id"), {trigger: true});
+//      app.navigate('editNews/' + this.model.get("_id"), {trigger: true});
     }
   });
 
