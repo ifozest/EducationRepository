@@ -4,10 +4,9 @@ define([
   'backbone',
   'view/news/newsCollectionView',
   'view/news/oneNewsView',
-  'view/news/createNewsView',
-  'view/news/editNewsView'
+  'view/news/modifyNewsView'
 
-], function ($, _, Backbone, NewsCollectionView, OneNewsView, CreateNewsView, EditNewsView) {
+], function ($, _, Backbone, NewsCollectionView, OneNewsView, ModifyNewsView) {
 
   var ContainerView = Backbone.View.extend({
     tagName: 'div',
@@ -24,11 +23,12 @@ define([
       this.$el.html(view.render().el);
     },
     renderCreateNews: function() {
-      var view = new CreateNewsView();
+      var view = new ModifyNewsView();
+      view.renderCreateForm();
       this.$el.html(view.render().el);
     },
     renderEditNews: function(id) {
-      var view = new EditNewsView();
+      var view = new ModifyNewsView();
       view.renderEditForm(id);
       this.$el.html(view.render().el);
     }
