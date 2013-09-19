@@ -3,7 +3,7 @@ define([
   'underscore',
   'backbone',
   'model/news',
-  'text!templates/main/content/editNews.html'
+  'text!templates/main/content/createNews.html'
 ], function ($, _, Backbone, News, template) {
 
   var EditNewsView = Backbone.View.extend({

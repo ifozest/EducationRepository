@@ -1,7 +1,8 @@
 define([
   'jquery',
+  'underscore',
   'backbone'
-], function ($, Backbone) {
+], function ($, _, Backbone) {
 
   var News = Backbone.Model.extend({
     defaults: {
@@ -14,14 +15,22 @@ define([
     urlRoot: '/news',
     //TODO overwrite this
     validate: function (attr) {
+      var errors = [];
       if ($.trim(attr.title) === '') {
-        return 'title must be defined';
+        errors.push('title');
       }
+      if ($.trim(attr.date) === '') {
+        errors.push('date');
+      }
+      if ($.trim(attr.brief) === '') {
+        errors.push('brief');
+      }
+      if ($.trim(attr.content) === '') {
+        errors.push('content');
+      }
+      return (!_.isEmpty(errors)) ? errors : null;
     }
   });
 
   return News;
 });
-
-
-

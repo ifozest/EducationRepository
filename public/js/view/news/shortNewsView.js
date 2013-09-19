@@ -21,6 +21,3 @@ define([
   return NewsShortView;
 
 });
-
-
-

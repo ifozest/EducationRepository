@@ -30,7 +30,4 @@ define([
 
   return NewsCollectionView;
 
-})
-
-
-
+});

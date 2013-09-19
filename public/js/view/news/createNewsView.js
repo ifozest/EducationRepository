@@ -3,7 +3,7 @@ define([
   'underscore',
   'backbone',
   'model/news',
-  'text!templates/main/content/addNews.html'
+  'text!templates/main/content/createNews.html'
 
 ], function ($, _, Backbone, News, template) {
 
@@ -23,7 +23,7 @@ define([
       'click .cancelBtn': 'cancel'
     },
     render: function () {
-      var renderedContent = this.template();
+      var renderedContent = this.template(this.model.toJSON());
       this.$el.html(renderedContent);
       return this;
     },

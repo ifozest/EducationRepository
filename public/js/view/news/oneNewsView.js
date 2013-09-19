@@ -66,5 +66,4 @@ define([
   });
 
   return NewsFullView;
-})
-
+});
