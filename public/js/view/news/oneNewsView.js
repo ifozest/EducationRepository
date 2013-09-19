@@ -61,7 +61,7 @@ define([
       this.$el.append('CANT REMOVE THIS!');
     },
     editNews: function () {
-//      app.navigate('editNews/' + this.model.get("_id"), {trigger: true});
+      this.goTo('editNews/' + this.model.get("_id"));
     }
   });
 

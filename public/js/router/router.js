@@ -25,7 +25,7 @@ define([
       this.appView.renderCreateNews();
     },
     editNews: function (id) {
-
+      this.appView.renderEditNews(id);
     },
     default: function() {
       this.navigate('home', true);
