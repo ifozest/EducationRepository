@@ -13,20 +13,20 @@ define([
     },
     idAttribute: '_id',
     urlRoot: '/news',
-    //TODO overwrite this
+    //TODO Date validation!
     validate: function (attr) {
       var errors = [];
-      if ($.trim(attr.title) === '') {
-        errors.push('title');
+      if ($.trim(attr.title) === '' || attr.title.length>100) {
+        errors.push('titleError');
       }
-      if ($.trim(attr.date) === '') {
-        errors.push('date');
+      if ($.trim(attr.date) === '' || attr.date.length>10) {
+        errors.push('dateError');
       }
-      if ($.trim(attr.brief) === '') {
-        errors.push('brief');
+      if ($.trim(attr.brief) === '' || attr.brief.length>150) {
+        errors.push('briefError');
       }
-      if ($.trim(attr.content) === '') {
-        errors.push('content');
+      if ($.trim(attr.content) === '' || attr.content.length>1000) {
+        errors.push('contentError');
       }
       return (!_.isEmpty(errors)) ? errors : null;
     }

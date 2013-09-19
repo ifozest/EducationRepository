@@ -25,6 +25,8 @@ define([
     render: function () {
       var renderedContent = this.template(this.model.toJSON());
       this.$el.html(renderedContent);
+      this.predefineVariables();
+      this.hideErrorMessagesFromPage();
       return this;
     },
     addNews: function (e) {
@@ -40,8 +42,14 @@ define([
       });
     },
     validationFails: function () {
-      //TODO render validation excptions
-      console.log('valid fail');
+      this.hideErrorMessagesFromPage();
+      var error = this.model.validationError;
+      console.log(error);
+      _.each(this.$errors, function (value, key, list) {
+        if(_.contains(error, key)){
+          value.show();
+        }
+      });
     },
     saveSuccess: function (model) {
       this.goTo('news/' + model.get('_id'));
@@ -52,6 +60,19 @@ define([
     },
     cancel: function () {
       this.goTo('home');
+    },
+    predefineVariables: function () {
+      this.$errors = {
+        titleError: this.$el.find('#titleError'),
+        dateError: this.$el.find('#dateError'),
+        briefError: this.$el.find('#briefError'),
+        contentError: this.$el.find('#contentError')
+      };
+    },
+    hideErrorMessagesFromPage: function() {
+      _.each(this.$errors, function (value, key, list) {
+        value.hide();
+      });
     }
   });
 
