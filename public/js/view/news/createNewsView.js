@@ -28,22 +28,16 @@ define([
       return this;
     },
     addNews: function (e) {
-      this.$title = $('#title');
-      this.$date = $('#date');
-      this.$brief = $('#brief');
-      this.$content = $('#content');
-      console.log('Create Btn press');
-      var title = this.$title.val(),
-        date = this.$date.val(),
-        brief = this.$brief.val(),
-        content = this.$content.val();
-      this.model.set({
+      var title = $('#title').val(),
+        date = $('#date').val(),
+        brief = $('#brief').val(),
+        content = $('#content').val();
+      this.model.save({
         title: title,
         date: date,
         brief: brief,
         content: content
       });
-      this.model.save();
     },
     validationFails: function () {
       //TODO render validation excptions

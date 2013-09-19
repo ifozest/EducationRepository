@@ -17,7 +17,6 @@ define([
   Backbone.View.prototype.goTo = function (loc, replace) {
     var opt = {trigger: true};
     (replace) ? opt.replace = replace : null;
-    console.log(opt);
     app.navigate(loc, opt);
 
   };
