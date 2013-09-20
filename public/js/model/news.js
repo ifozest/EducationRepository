@@ -1,8 +1,9 @@
 define([
   'jquery',
   'underscore',
-  'backbone'
-], function ($, _, Backbone) {
+  'backbone',
+  'util/dateHelper'
+], function ($, _, Backbone, dateHelper) {
 
   var News = Backbone.Model.extend({
     defaults: {
@@ -13,37 +14,35 @@ define([
     },
     idAttribute: '_id',
     urlRoot: '/news',
-    //TODO Date validation!
     validate: function (attr) {
       var errors = [];
-      if ($.trim(attr.title) === '' || attr.title.length>100) {
+      if ($.trim(attr.title) === '' || attr.title.length > 100) {
         errors.push('titleError');
       }
-      //need to add more powerfull validation!
-      if ($.trim(attr.date) === '' || attr.date.length>10) {
+      if (!dateHelper.dateHelper.isDatePatternValid(attr.date)) {
         errors.push('dateError');
       }
-      if ($.trim(attr.brief) === '' || attr.brief.length>150) {
+      if ($.trim(attr.brief) === '' || attr.brief.length > 150) {
         errors.push('briefError');
       }
-      if ($.trim(attr.content) === '' || attr.content.length>1000) {
+      if ($.trim(attr.content) === '' || attr.content.length > 1000) {
         errors.push('contentError');
       }
       return (!_.isEmpty(errors)) ? errors : null;
     },
-    parse : function(response, options) {
+    parse: function (response, options) {
       var json = Backbone.Model.prototype.parse.call(this, response);
       json.date = new Date(json.date);
       return json;
     },
     //Override for save date as Date object after validation
-    set: function(key, val, options) {
+    set: function (key, val, options) {
       var object = Backbone.Model.prototype.set.call(this, key, val, options);
-      if (key.date){
-        if (!_.isDate(key.date)){
+      if (key.date) {
+        if (!_.isDate(key.date)) {
           var splittedDate = key.date.split('/');
           var day = splittedDate[1];
-          var month = splittedDate[0]-1;
+          var month = splittedDate[0] - 1;
           var year = splittedDate[2];
           var date = new Date(year, month, day);
           object.set({date: date});

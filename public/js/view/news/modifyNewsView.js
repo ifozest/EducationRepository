@@ -75,7 +75,6 @@ define([
     validationFails: function () {
       this.hideErrorMessagesFromPage();
       var error = this.model.validationError;
-      console.log(error);
       _.each(this.$errors, function (value, key, list) {
         if(_.contains(error, key)){
           value.show();
