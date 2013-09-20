@@ -14,19 +14,18 @@ define([
     tagName: 'article',
     className: 'appView',
     initialize: function () {
-      this.predefineInitData();
       this.menuView = new MenuView();
       this.mainContainerView = new MainContainerView();
       this.renderAppView();
     },
-    //create skeleton of el var
-    render: function () {
-      this.$mainBody.append(this.menuView.render().el).append(this.mainContainerView.render().el);
-      this.$el.append(this.$header).append(this.$mainBody).append(this.$footer);
-      return this;
-    },
     renderAppView: function () {
-      this.$body.prepend(this.render().el);
+      var $body = $('body');
+//      $body.empty();
+      $body.prepend(this.render().el);
+      this.predefineInitData();
+      this.$el.append(this.header()).append(this.mainBody()).append(this.footer());
+      this.$mainBody = this.$el.find('.mainBody'); //smthng wrong here
+      this.$mainBody.append(this.menuView.render().el).append(this.mainContainerView.render().el);
     },
     renderNewsList: function () {
       this.mainContainerView.renderNewsList();
@@ -41,13 +40,9 @@ define([
       this.mainContainerView.renderEditNews(id);
     },
     predefineInitData: function () {
-      this.$body = $('body');
       this.header = _.template(headerTemplate);
       this.mainBody = _.template(mainBodyTemplate);
       this.footer = _.template(footerTemplate);
-      this.$header = $(this.header());
-      this.$mainBody = $(this.mainBody());
-      this.$footer = $(this.footer());
     }
   });
   return AppView;

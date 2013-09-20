@@ -12,7 +12,7 @@ define([
       this.template = _.template(template);
     },
     render: function () {
-      var renderedContent = this.template(this.model.toJSON());
+      var renderedContent = this.template({model : this.model.toJSON(), representDate: this.representDate});
       this.$el.html(renderedContent);
       return this;
     }

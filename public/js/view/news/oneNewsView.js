@@ -35,7 +35,7 @@ define([
       });
     },
     fetchSuccess: function () {
-      var renderedContent = this.template(this.model.toJSON());
+      var renderedContent = this.template({model :this.model.toJSON(), representDate : this.representDate});
       this.$el.html(renderedContent);
     },
     fetchError: function () {
@@ -64,6 +64,5 @@ define([
       this.goTo('editNews/' + this.model.get("_id"));
     }
   });
-
   return NewsFullView;
 });

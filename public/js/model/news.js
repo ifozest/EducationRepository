@@ -7,7 +7,7 @@ define([
   var News = Backbone.Model.extend({
     defaults: {
       title: '',
-      date: '',
+      date: new Date(),
       brief: '',
       content: ''
     },
@@ -19,6 +19,7 @@ define([
       if ($.trim(attr.title) === '' || attr.title.length>100) {
         errors.push('titleError');
       }
+      //need to add more powerfull validation!
       if ($.trim(attr.date) === '' || attr.date.length>10) {
         errors.push('dateError');
       }
@@ -29,6 +30,26 @@ define([
         errors.push('contentError');
       }
       return (!_.isEmpty(errors)) ? errors : null;
+    },
+    parse : function(response, options) {
+      var json = Backbone.Model.prototype.parse.call(this, response);
+      json.date = new Date(json.date);
+      return json;
+    },
+    //Override for save date as Date object after validation
+    set: function(key, val, options) {
+      var object = Backbone.Model.prototype.set.call(this, key, val, options);
+      if (key.date){
+        if (!_.isDate(key.date)){
+          var splittedDate = key.date.split('/');
+          var day = splittedDate[1];
+          var month = splittedDate[0]-1;
+          var year = splittedDate[2];
+          var date = new Date(year, month, day);
+          object.set({date: date});
+        }
+      }
+      return object;
     }
   });
 

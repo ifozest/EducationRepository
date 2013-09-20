@@ -20,5 +20,14 @@ define([
     app.navigate(loc, opt);
 
   };
+  //Date representation on page
+  Backbone.View.prototype.representDate = function(date) {
+    var day = date.getDate();
+    var month = date.getMonth()+1;
+    var year = date.getFullYear();
+    return month+'/'+ day+'/'+year;
+  };
+
+
   Backbone.history.start();
 });

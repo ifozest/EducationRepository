@@ -45,7 +45,7 @@ define([
       });
     },
     renderForm: function () {
-      var renderedContent = this.template(this.model.toJSON());
+      var renderedContent = this.template({model :this.model.toJSON(), representDate : this.representDate});
       this.$el.html(renderedContent);
       this.predefineVariables();
       this.hideErrorMessagesFromPage();
