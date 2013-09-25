@@ -60,7 +60,7 @@ footer {
 
 /** Onew news view **/
 
-.newsFullViewContainer .title {
+.title {
     max-width: 500px;
     float: left;
     margin-left: 20px;
@@ -68,16 +68,21 @@ footer {
     margin-bottom: 20px;
 }
 
-.newsFullViewContainer .date {
+.date {
     margin-top: 20px;
     margin-right: 20px;
     float: right;
 }
 
-.newsFullViewContainer .brief, .newsFullViewContainer .content  {
+.brief, .content {
     margin: 20px 60px 20px 30px;
     clear: both;
     text-align: justify;
 }
 
+/*List news*/
+.newsCollection {
+    list-style-type: none;
+    padding: 0px;
+}
 
