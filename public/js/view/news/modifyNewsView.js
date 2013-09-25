@@ -31,7 +31,11 @@ define([
       this.prepareForm();
     },
     prepareForm: function(id){
-      (id) ? this.fetchNews(id) : this.renderForm();
+      if (id) {
+        this.fetchNews(id);
+      } else {
+        this.renderForm();
+      }
     },
     fetchNews: function (id) {
       this.model.set({'_id': id});
@@ -63,7 +67,8 @@ define([
         title: title,
         date: date,
         brief: brief,
-        content: content}, {
+        content: content
+      }, {
         success: function (model) {
           model.trigger('modifySuccess');
         },
@@ -75,7 +80,7 @@ define([
     validationFails: function () {
       this.hideErrorMessagesFromPage();
       var error = this.model.validationError;
-      _.each(this.$errors, function (value, key, list) {
+      _.each(this.$errors, function (value, key) {
         if(_.contains(error, key)){
           value.show();
         }
@@ -89,7 +94,11 @@ define([
       this.$el.append('Cant save news!Internal Error');
     },
     cancel: function () {
-      (this.action === 'edit') ? this.goToNewsPage() : this.goTo('home');
+      if (this.action === 'edit'){
+        this.goToNewsPage();
+      } else {
+        this.goTo('home');
+      }
     },
     predefineVariables: function () {
       this.$errors = {
@@ -100,7 +109,7 @@ define([
       };
     },
     hideErrorMessagesFromPage: function() {
-      _.each(this.$errors, function (value, key, list) {
+      _.each(this.$errors, function (value) {
         value.hide();
       });
     },

@@ -14,9 +14,20 @@ module.exports = function (grunt) {
           }
         }
       }
+    },
+    jshint: {
+      all: [
+        'Gruntfile.js',
+        'public/js/**/*.js'
+      ],
+      options: {
+        jshintrc: '.jshintrc',
+        ignores: 'public/js/text.js'
+      }
     }
   });
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.registerTask('test', ['jasmine']);
   grunt.registerTask('default', ['test']);
 };

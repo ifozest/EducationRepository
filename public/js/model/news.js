@@ -30,7 +30,7 @@ define([
       }
       return (!_.isEmpty(errors)) ? errors : null;
     },
-    parse: function (response, options) {
+    parse: function (response) {
       var json = Backbone.Model.prototype.parse.call(this, response);
       json.date = new Date(json.date);
       return json;

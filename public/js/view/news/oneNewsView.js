@@ -20,8 +20,8 @@ define([
       this.model.on('removeError', this.removeError, this);
     },
     events: {
-      "click .removeBtn": "removeNews",
-      "click .editBtn": "editNews"
+      'click .removeBtn': 'removeNews',
+      'click .editBtn': 'editNews'
     },
     renderOneNews: function (id) {
       this.model.set({_id: id});
@@ -61,7 +61,7 @@ define([
       this.$el.append('CANT REMOVE THIS!');
     },
     editNews: function () {
-      this.goTo('editNews/' + this.model.get("_id"));
+      this.goTo('editNews/' + this.model.get('_id'));
     }
   });
   return NewsFullView;

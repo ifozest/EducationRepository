@@ -20,9 +20,9 @@ define([
 
     if (_.contains(MONTHS_WITH_30_DAYS, month) && (day > 30)) {
       return false;
-    } else if ((month == 2) && (day > 28) && (year % 4 != 0)) {
+    } else if ((month === 2) && (day > 28) && (year % 4 !== 0)) {
       return false;
-    } else if ((month == 2) && (day > 29) && (year % 4 == 0)) {
+    } else if ((month === 2) && (day > 29) && (year % 4 === 0)) {
       return false;
     }
     return true;
@@ -33,9 +33,9 @@ define([
     if (!_.isDate(date)) {
       var result = this.parse(date);
       if (result) {
-        var month = result[1];
-        var day = result[2];
-        var year = result[3];
+        var month = +result[1],
+          day = +result[2],
+          year = +result[3];
         return this.isDateCorrect(month, day, year);
       } else {
         return false;

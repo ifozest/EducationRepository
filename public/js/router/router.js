@@ -7,9 +7,9 @@ define([
   var NewsRouter = Backbone.Router.extend({
     routes: {
       'home': 'home',
-      "news/:id": 'showNewsContent',
-      "createNews": 'createNews',
-      "editNews/:id": 'editNews',
+      'news/:id': 'showNewsContent',
+      'createNews': 'createNews',
+      'editNews/:id': 'editNews',
       '*actions' : 'default'
     },
     initialize: function () {
@@ -32,4 +32,4 @@ define([
     }
   });
   return NewsRouter;
-})
+});
