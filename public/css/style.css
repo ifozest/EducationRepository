@@ -1,17 +1,13 @@
+h3 {
+    margin: 0px;
+    padding: 0px;
+}
+
 body {
     margin: 0px;
     padding: 0px;
     font-family: sans-serif;
     background-color: darkslategrey;
-}
-
-#wrap {
-    width: 900px;
-    min-width: 900px;
-    margin: auto;
-    height: 100%;
-    min-height: 100%;
-    background-color: gainsboro;
 }
 
 header {
@@ -21,7 +17,7 @@ header {
     border-bottom: 1px #000000 solid;
 }
 
-header h2{
+header h2 {
     margin-top: 40px;
     margin-right: 50px;
     float: right;
@@ -32,46 +28,56 @@ footer {
     background-color: gainsboro;
     height: 120px;
     text-align: center;
+    clear: both;
+}
+
+.appView {
+    margin: auto;
+    width: 900px;
+    background: #f5f5f5;
 }
 
 .mainBody {
-    height: 600px;
+    min-height: 100%;
+    min-width: 900px;
+    width: 900px;
+}
+
+.mainBody .menuBlock {
     margin: 10px;
-}
-
-.mainBody .menu{
-    width: 200px;
-    height: 600px;
+    min-width: 200px;
     border: 1px #000000 solid;
     float: left;
 }
 
-.mainBody .mainContent{
-    margin-left: 10px;
-    width: 660px;
-    height: 600px;
+.mainBody .container {
+    margin: 10px;
+    min-width: 650px;
+    max-width: 650px;
     border: 1px #000000 solid;
     float: left;
 }
 
-.taskShortViewContainer {
-    width: 600px;
-    margin: 30px;
+/** Onew news view **/
 
-}
-
-.taskShortViewContainer .title {
-    margin: 0px 0px 20px 0px;
+.newsFullViewContainer .title {
+    max-width: 500px;
     float: left;
-    font-size: large;
-    text-decoration: underline;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.taskShortViewContainer .date{
-    color: blue;
+.newsFullViewContainer .date {
+    margin-top: 20px;
+    margin-right: 20px;
     float: right;
 }
 
-.taskShortViewContainer .brief {
+.newsFullViewContainer .brief, .newsFullViewContainer .content  {
+    margin: 20px 60px 20px 30px;
     clear: both;
+    text-align: justify;
 }
+
+
