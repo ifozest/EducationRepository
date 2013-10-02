@@ -1,20 +1,20 @@
 <input name="title" type="text" placeholder="Enter title here"
-	   id="title" value="<%= model.title %>" maxlength="100">
+	   id="title" value="{{model.title}}" maxlength="100">
 
 <span id="titleError">title error</span>
 
 <input name="date" type="text" placeholder="Date"
-	   id="date" value="<%= representDate(model.date) %>">
+	   id="date" value="{{representDate model.date}}">
 
 <span id="dateError">date error</span>
 
 <input name="brief" type="text" placeholder="Enter news brief here"
-	   id="brief" value="<%= model.brief %>" maxlength="150">
+	   id="brief" value="{{model.brief}}" maxlength="150">
 
 <span id="briefError">brief error</span>
 
 <textarea name="content" placeholder="Enter content here"
-		  id="content" rows='5' maxlength="1000"><%= model.content%></textarea>
+		  id="content" rows='5' maxlength="1000">{{model.content}}</textarea>
 
 <span id="contentError">content error</span>
 

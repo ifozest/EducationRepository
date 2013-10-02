@@ -2,13 +2,22 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'handlebars',
   'view/menuView',
   'view/mainContainerView',
 
   'text!templates/header/header.html',
   'text!templates/main/mainBody.html',
   'text!templates/footer/footer.html'
-], function ($, _, Backbone, MenuView, MainContainerView, headerTemplate, mainBodyTemplate, footerTemplate) {
+], function ($,
+             _,
+             Backbone,
+             Handlebars,
+             MenuView,
+             MainContainerView,
+             headerTemplate,
+             mainBodyTemplate,
+             footerTemplate) {
 
   var AppView = Backbone.View.extend({
     tagName: 'article',
@@ -20,7 +29,6 @@ define([
     },
     renderAppView: function () {
       var $body = $('body');
-//      $body.empty();
       $body.prepend(this.render().el);
       this.predefineInitData();
       this.$el.append(this.header()).append(this.mainBody()).append(this.footer());
@@ -40,9 +48,9 @@ define([
       this.mainContainerView.renderEditNews(id);
     },
     predefineInitData: function () {
-      this.header = _.template(headerTemplate);
-      this.mainBody = _.template(mainBodyTemplate);
-      this.footer = _.template(footerTemplate);
+      this.header = Handlebars.compile(headerTemplate);
+      this.mainBody = Handlebars.compile(mainBodyTemplate);
+      this.footer = Handlebars.compile(footerTemplate);
     }
   });
   return AppView;

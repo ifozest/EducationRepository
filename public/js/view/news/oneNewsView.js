@@ -2,10 +2,11 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'handlebars',
   'model/newsRepository',
   'text!templates/main/content/fullNewsView.html'
 
-], function ($, _, Backbone, newsRepository, template) {
+], function ($, _, Backbone, Handlebars, newsRepository, template) {
 
   //Full overview of news
   var NewsFullView = Backbone.View.extend({
@@ -13,7 +14,7 @@ define([
     className: 'newsFullViewContainer',
     initialize: function () {
       this.newsRepository = newsRepository;
-      this.template = _.template(template);
+      this.template = Handlebars.compile(template);
     },
     events: {
       'click .removeBtn': 'removeNews',
@@ -40,7 +41,7 @@ define([
       this.goTo('editNews/' + this.model.get('_id'));
     },
     _renderOneNewsTemplate: function () {
-      var renderedContent = this.template({model :this.model.toJSON(), representDate : this.representDate});
+      var renderedContent = this.template({model :this.model.toJSON()});
       this.$el.html(renderedContent);
     },
     _renderNoNewsFound: function () {

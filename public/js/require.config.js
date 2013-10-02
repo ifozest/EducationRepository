@@ -3,6 +3,7 @@ require.config({
     'jquery': '../vendor/jquery/jquery',
     'underscore': '../vendor/underscore/underscore',
     'backbone': '../vendor/backbone/backbone',
+    'handlebars': '../vendor/handlebars/handlebars',
     'templates' : '../templates'
   },
   shim: {
@@ -12,6 +13,9 @@ require.config({
     'backbone': {
       deps: ['jquery', 'underscore'],
       exports: 'Backbone'
+    },
+    'handlebars': {
+      exports: 'Handlebars'
     }
   }
 });

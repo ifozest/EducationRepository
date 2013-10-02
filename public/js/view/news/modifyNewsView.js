@@ -2,17 +2,18 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'handlebars',
   'model/news',
   'model/newsRepository',
   'text!templates/main/content/modifyNews.html'
-], function ($, _, Backbone, News, newsRepository, template) {
+], function ($, _, Backbone, Handlebars, News, newsRepository, template) {
 
   var ModifyNewsView = Backbone.View.extend({
     tagName: 'article',
     className: 'modifyNews',
     initialize: function () {
       this.newsRepository = newsRepository;
-      this.template = _.template(template);
+      this.template = Handlebars.compile(template);
       this.model = new News();
       this.model.on('invalid', this._validationFails, this);
     },
@@ -60,7 +61,7 @@ define([
       });
     },
     _renderForm: function () {
-      var renderedContent = this.template({model: this.model.toJSON(), representDate: this.representDate});
+      var renderedContent = this.template({model: this.model.toJSON()});
       this.$el.html(renderedContent);
       this._predefineVariables();
       this._hideErrorMessagesFromPage();
