@@ -3,104 +3,86 @@ define([
   'underscore',
   'backbone',
   'model/news',
+  'model/newsRepository',
   'text!templates/main/content/modifyNews.html'
-], function ($, _, Backbone, News, template) {
+], function ($, _, Backbone, News, newsRepository, template) {
 
   var ModifyNewsView = Backbone.View.extend({
     tagName: 'article',
     className: 'modifyNews',
     initialize: function () {
+      this.newsRepository = newsRepository;
       this.template = _.template(template);
       this.model = new News();
-      this.model.on('invalid', this.validationFails, this);
-      this.model.on('fetchSuccess', this.renderForm, this);
-      this.model.on('fetchError', this.fetchError, this);
-      this.model.on('modifySuccess', this.modifySuccess, this);
-      this.model.on('modifyError', this.modifyError, this);
+      this.model.on('invalid', this._validationFails, this);
     },
     events: {
       'click .createBtn': 'modifyNews',
       'click .cancelBtn': 'cancel'
     },
-    renderEditForm: function(id){
+    renderEditForm: function (id) {
       this.action = 'edit';
-      this.prepareForm(id);
+      this._prepareForm(id);
     },
-    renderCreateForm: function(){
+    renderCreateForm: function () {
       this.action = 'create';
-      this.prepareForm();
-    },
-    prepareForm: function(id){
-      if (id) {
-        this.fetchNews(id);
-      } else {
-        this.renderForm();
-      }
-    },
-    fetchNews: function (id) {
-      this.model.set({'_id': id});
-      this.model.fetch({
-        success: function (model) {
-          model.trigger('fetchSuccess');
-        },
-        error: function (model) {
-          model.trigger('fetchError');
-        }
-      });
-    },
-    renderForm: function () {
-      var renderedContent = this.template({model :this.model.toJSON(), representDate : this.representDate});
-      this.$el.html(renderedContent);
-      this.predefineVariables();
-      this.hideErrorMessagesFromPage();
-    },
-    fetchError: function () {
-      //TODO render smthng clear
-      this.$el.html('No news for EDIT!');
+      this._renderForm();
     },
     modifyNews: function () {
-      var title = $('#title').val(),
-        date = $('#date').val(),
-        brief = $('#brief').val(),
-        content = $('#content').val();
-      this.model.save({
-        title: title,
-        date: date,
-        brief: brief,
-        content: content
-      }, {
-        success: function (model) {
-          model.trigger('modifySuccess');
-        },
-        error: function (model) {
-          model.trigger('modifyError');
-        }
+      var self = this;
+      var attrs = {
+        title: $('#title').val(),
+        date: $('#date').val(),
+        brief: $('#brief').val(),
+        content: $('#content').val()
+      };
+      $.when(this.newsRepository.saveNews(this.model, attrs)).then(function () {
+        self._goToNewsPage();
+      }, function () {
+        self._renderModifyError();
       });
-    },
-    validationFails: function () {
-      this.hideErrorMessagesFromPage();
-      var error = this.model.validationError;
-      _.each(this.$errors, function (value, key) {
-        if(_.contains(error, key)){
-          value.show();
-        }
-      });
-    },
-    modifySuccess: function () {
-      this.goToNewsPage();
-    },
-    modifyError: function () {
-      //TODO render smthng clear
-      this.$el.append('Cant save news!Internal Error');
     },
     cancel: function () {
-      if (this.action === 'edit'){
-        this.goToNewsPage();
+      if (this.action === 'edit') {
+        this._goToNewsPage();
       } else {
         this.goTo('home');
       }
     },
-    predefineVariables: function () {
+    _prepareForm: function (id) {
+      var self = this;
+      $.when(this.newsRepository.getNewsById(id)).then(function (model) {
+        self.model = model;
+        self.listenTo(self.model, 'invalid', self._validationFails);
+        self._renderForm();
+      }, function () {
+        self._renderNoNewsFound();
+      });
+    },
+    _renderForm: function () {
+      var renderedContent = this.template({model: this.model.toJSON(), representDate: this.representDate});
+      this.$el.html(renderedContent);
+      this._predefineVariables();
+      this._hideErrorMessagesFromPage();
+    },
+    _renderNoNewsFound: function () {
+      //TODO render smthng clear
+      this.$el.html('No news for EDIT!');
+    },
+    _validationFails: function () {
+      this._hideErrorMessagesFromPage();
+      var error = this.model.validationError;
+      _.each(this.$errors, function (value, key) {
+        if (_.contains(error, key)) {
+          value.show();
+        }
+      });
+    },
+    _renderModifyError: function () {
+      //TODO render smthng clear
+      this.$el.append('Cant save news!Internal Error');
+    },
+    _predefineVariables: function () {
       this.$errors = {
         titleError: this.$el.find('#titleError'),
         dateError: this.$el.find('#dateError'),
@@ -108,12 +90,12 @@ define([
         contentError: this.$el.find('#contentError')
       };
     },
-    hideErrorMessagesFromPage: function() {
+    _hideErrorMessagesFromPage: function () {
       _.each(this.$errors, function (value) {
         value.hide();
       });
     },
-    goToNewsPage : function() {
+    _goToNewsPage: function () {
       this.goTo('news/' + this.model.get('_id'));
     }
   });

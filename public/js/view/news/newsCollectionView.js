@@ -2,32 +2,35 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'collection/newsCollection',
+  'model/newsRepository',
   'view/news/shortNewsView'
-], function ($, _, Backbone, NewsCollection, NewsView) {
+], function ($, _, Backbone, newsRepository, NewsView) {
 
   var NewsCollectionView = Backbone.View.extend({
     tagName: 'ul',
     className: 'newsCollection',
     initialize: function () {
-      this.collection = new NewsCollection();
-      this.collection.on('add', this.addNews, this);
-      this.collection.fetch({add:true});
+      this.newsRepository = newsRepository;
     },
     render: function () {
-      this.collection.each(function (news) {
-        this.addNews(news);
-      }, this);
+      var self = this;
+      $.when(this.newsRepository.getNewsCollection()).then(function (newsCollection) {
+        self.collection = newsCollection;
+        self._showCollection();
+      });
       return this;
     },
-    addNews: function (news) {
+    _showCollection: function(){
+      this.collection.each(function (news) {
+        this._addNews(news);
+      }, this);
+    },
+    _addNews: function (news) {
       var newsView = new NewsView({
         model: news
       });
       this.$el.append(newsView.render().el);
     }
   });
-
   return NewsCollectionView;
-
 });
