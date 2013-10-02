@@ -19,7 +19,7 @@ define([
       if ($.trim(attr.title) === '' || attr.title.length > 100) {
         errors.push('titleError');
       }
-      if (!dateHelper.dateHelper.isDatePatternValid(attr.date)) {
+      if (!dateHelper.isDatePatternValid(attr.date)) {
         errors.push('dateError');
       }
       if ($.trim(attr.brief) === '' || attr.brief.length > 150) {
